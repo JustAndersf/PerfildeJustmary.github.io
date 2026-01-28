@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portafolio | Justmary Anderson</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --primary: #38bdf8;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #22c55e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f172a, #020617);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    header p {
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    nav {
+      margin-top: 1.5rem;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 500;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+      display: grid;
+      gap: 3rem;
+    }
+
+    section {
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .about img {
+      width: 100%;
+      border-radius: 1rem;
+      object-fit: cover;
+      aspect-ratio: 1/1;
+      background: #1f2937;
+    }
+
+    .about p {
+      color: var(--text);
+    }
+
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .skill {
+      background: rgba(31, 41, 55, 0.8);
+      border-radius: 1rem;
+      padding: 1rem 1.25rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .skill span {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .project-card {
+      background: rgba(31, 41, 55, 0.85);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .project-card h3 {
+      margin-bottom: 0.5rem;
+      color: #f9fafb;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-card a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      align-self: flex-start;
+    }
+
+    .project-card a:hover {
+      text-decoration: underline;
+    }
+
+    .contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .contact-info p {
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-info a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+
+    form {
+      display: grid;
+      gap: 1rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      border: none;
+      background: #020617;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: var(--muted);
+    }
+
+    button {
+      margin-top: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.75rem;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #020617;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .about {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .contact {
+        grid-template-columns: 1fr;
+      }
+
+      nav a {
+        margin: 0 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Justmary Anderson</h1>
+    <p>Ingeniera en Sistemas | Python | IA | Análisis de Datos | Visión por Computadora</p>
+    <nav>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#habilidades">Habilidades</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- SOBRE MÍ -->
+    <section id="sobre-mi">
+      <h2>Sobre mí</h2>
+      <div class="about">
+        <img src="https://via.placeholder.com/400" alt="Foto profesional de Justmary Anderson" />
+        <div>
+          <p>
+            Soy egresada de la Licenciatura en Ingeniería en Sistemas y Computación por la Universidad Tecnológica de Panamá,
+            con experiencia como Asistente Académica y en el desarrollo de proyectos en programación, análisis de datos,
+            inteligencia artificial, machine learning y visión por computadora.
+          </p>
+          <p style="margin-top: 0.75rem;">
+            Me caracterizo por mi orientación a resultados, capacidad de aprendizaje continuo, trabajo en equipo
+            y compromiso con la calidad técnica. Busco oportunidades como desarrolladora junior, analista de datos
+            o roles relacionados con IA.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HABILIDADES / CV -->
+    <section id="habilidades">
+      <h2>Currículum & Habilidades</h2>
+      <p>Puedes descargar mi CV completo aquí:</p>
+      <p style="margin: 0.75rem 0 1.25rem;">
+        <a href="cv.pdf" download style="color: var(--accent); font-weight: 600; text-decoration: none;">📄 Descargar CV</a>
+      </p>
+
+      <div class="skills">
+        <div class="skill">Lenguajes <span>Python, C, C#, Java, JavaScript</span></div>
+        <div class="skill">Frameworks & Librerías <span>Flask, Pandas, NumPy, OpenCV, scikit-learn</span></div>
+        <div class="skill">Bases de datos <span>SQL Server, PL/SQL</span></div>
+        <div class="skill">Análisis & BI <span>Power BI, Excel Avanzado</span></div>
+        <div class="skill">IA & ML <span>Machine Learning, Visión por Computadora, Algoritmos Genéticos</span></div>
+        <div class="skill">Diseño <span>UI/UX, Figma, Prototipado</span></div>
+        <div class="skill">Herramientas <span>Git, Microsoft Office</span></div>
+        <div class="skill">Idiomas <span>Español, Inglés</span></div>
+      </div>
+    </section>
+
+    <!-- PROYECTOS -->
+    <section id="proyectos">
+      <h2>Proyectos</h2>
+      <div class="projects">
+        <div class="project-card">
+          <div>
+            <h3>Asignación Automática de Horarios Docentes con IA</h3>
+            <p>
+              Trabajo de graduación: prototipo de aplicación web que automatiza la generación de horarios docentes
+              mediante algoritmos genéticos, adaptado a las necesidades institucionales de la UTP.
+            </p>
+          </div>
+          <a href="#">Ver proyecto</a>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <h3>Traductor de Lenguaje de Señas</h3>
+            <p>
+              Sistema en tiempo real para traducir gestos a caracteres visibles utilizando Python y visión por computadora,
+              logrando más del 90% de precisión.
+            </p>
+          </div>
+          <a href="#">Ver proyecto</a>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <h3>Reconocimiento Facial de Emociones</h3>
+            <p>
+              Sistema de clasificación de emociones en tiempo real con interfaz interactiva y visualización en vivo.
+            </p>
+          </div>
+          <a href="#">Ver proyecto</a>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <h3>Study Planner</h3>
+            <p>
+              Aplicación académica con base de datos relacional optimizada, enfocada en la planificación de estudios
+              y con 94.5% de satisfacción en pruebas de usabilidad.
+            </p>
+          </div>
+          <a href="#">Ver proyecto</a>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <h3>Análisis y Predicción de Datos</h3>
+            <p>
+              Implementación de modelos supervisados y no supervisados con dashboards interactivos en Power BI para
+              visualización de insights clave.
+            </p>
+          </div>
+          <a href="#">Ver proyecto</a>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <h3>Sistema Inteligente para Adultos Mayores</h3>
+            <p>
+              Sistema de asistencia con IA para reconocimiento de gestos de emergencia en tiempo real, integrando
+              sensores y alertas en la nube.
+            </p>
+          </div>
+          <a href="#">Ver proyecto</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+      <h2>Contacto</h2>
+      <div class="contact">
+        <div class="contact-info">
+          <p><strong>Email:</strong> <a href="mailto:justmaryanderson@gmail.com">justmaryanderson@gmail.com</a></p>
+          <p><strong>Teléfono:</strong> <a href="tel:+50762070654">+507 6207-0654</a></p>
+          <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/justmary-anderson" target="_blank">linkedin.com/in/justmary-anderson</a></p>
+          <p><strong>GitHub:</strong> <a href="https://github.com/justmaryanderson" target="_blank">github.com/justmaryanderson</a></p>
+          <p><strong>Ubicación:</strong> Panamá</p>
+        </div>
+
+        <form onsubmit="enviarFormulario(event)">
+          <input type="text" name="nombre" placeholder="Tu nombre" required />
+          <input type="email" name="email" placeholder="Tu correo" required />
+          <textarea name="mensaje" rows="4" placeholder="Tu mensaje" required></textarea>
+          <button type="submit">Enviar mensaje</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Justmary Anderson | Ingeniera en Sistemas y Computación</p>
+  </footer>
+
+  <script>
+    function enviarFormulario(event) {
+      event.preventDefault();
+      alert("Gracias por tu mensaje. Me pondré en contacto contigo pronto.");
+      event.target.reset();
+    }
+  </script>
+</body>
+</html>
