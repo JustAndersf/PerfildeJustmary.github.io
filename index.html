@@ -13,6 +13,7 @@
       --text: #e5e7eb;
       --muted: #9ca3af;
       --accent: #22c55e;
+      --error: #ef4444;
     }
 
     * {
@@ -203,18 +204,53 @@
       gap: 1rem;
     }
 
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
     input, textarea {
       width: 100%;
       padding: 0.75rem 1rem;
       border-radius: 0.75rem;
-      border: none;
+      border: 2px solid transparent;
       background: #020617;
       color: var(--text);
       font-size: 0.95rem;
+      transition: border 0.2s, box-shadow 0.2s;
     }
 
     input::placeholder, textarea::placeholder {
       color: var(--muted);
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+    }
+
+    .form-group.invalid input,
+    .form-group.invalid textarea {
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+
+    .form-group.valid input,
+    .form-group.valid textarea {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+    }
+
+    .error-msg {
+      color: var(--error);
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      display: none;
+    }
+
+    .form-group.invalid .error-msg {
+      display: block;
     }
 
     button {
@@ -307,7 +343,7 @@
         <div class="skill">IA & ML <span>Machine Learning, Visión por Computadora, Algoritmos Genéticos</span></div>
         <div class="skill">Diseño <span>UI/UX, Figma, Prototipado</span></div>
         <div class="skill">Herramientas <span>Git, Microsoft Office</span></div>
-        <div class="skill">Idiomas <span>Español, Inglés basico</span></div>
+        <div class="skill">Idiomas <span>Español, Inglés básico</span></div>
       </div>
     </section>
 
@@ -396,10 +432,31 @@
           <p><strong>Ubicación:</strong> Panamá</p>
         </div>
 
-        <form onsubmit="enviarFormulario(event)">
-          <input type="text" name="nombre" placeholder="Tu nombre" required />
-          <input type="email" name="email" placeholder="Tu correo" required />
-          <textarea name="mensaje" rows="4" placeholder="Tu mensaje" required></textarea>
+        <form action="https://formsubmit.co/justmaryanderson@gmail.com" method="POST" novalidate>
+          <div class="form-group">
+            <input type="text" name="name" placeholder="Tu nombre completo" required />
+            <small class="error-msg">Por favor ingresa tu nombre.</small>
+          </div>
+
+          <div class="form-group">
+            <input type="email" name="email" placeholder="Tu correo electrónico" required />
+            <small class="error-msg">Ingresa un correo válido.</small>
+          </div>
+
+          <div class="form-group">
+            <textarea name="message" rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
+            <small class="error-msg">El mensaje no puede estar vacío.</small>
+          </div>
+
+          <!-- Protección contra spam -->
+          <input type="hidden" name="_captcha" value="true">
+          <input type="text" name="_honey" style="display:none">
+
+          <!-- Configuración personalizada -->
+          <input type="hidden" name="_subject" value="📩 Nuevo mensaje desde tu portafolio">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://justandersf.github.io/">
+
           <button type="submit">Enviar mensaje</button>
         </form>
       </div>
@@ -411,12 +468,41 @@
   </footer>
 
   <script>
-    function enviarFormulario(event) {
-      event.preventDefault();
-      alert("Gracias por tu mensaje. Me pondré en contacto contigo pronto.");
-      event.target.reset();
-    }
+    const form = document.querySelector("form");
+    const inputs = form.querySelectorAll("input[required], textarea[required]");
+
+    form.addEventListener("submit", function (e) {
+      let isValid = true;
+
+      inputs.forEach(input => {
+        const formGroup = input.closest(".form-group");
+
+        if (!input.checkValidity()) {
+          formGroup.classList.remove("valid");
+          formGroup.classList.add("invalid");
+          isValid = false;
+        } else {
+          formGroup.classList.remove("invalid");
+          formGroup.classList.add("valid");
+        }
+      });
+
+      if (!isValid) {
+        e.preventDefault();
+      }
+    });
+
+    inputs.forEach(input => {
+      input.addEventListener("input", () => {
+        const formGroup = input.closest(".form-group");
+        if (input.checkValidity()) {
+          formGroup.classList.remove("invalid");
+          formGroup.classList.add("valid");
+        }
+      });
+    });
   </script>
 </body>
 </html>
+
 
